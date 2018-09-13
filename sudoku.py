@@ -22,16 +22,22 @@ for j in range(col):
 
 
 def start():
-    if sys.argv[1] == "easy":
+    if len(sys.argv) == 1:
         filename = "easy_boards.txt"
+        line_no = 0
+    elif sys.argv[1] == "easy":
+        filename = "easy_boards.txt"
+        line_no = int(sys.argv[2])
     elif sys.argv[1] == "medium":
         filename = "medium_boards.txt"
+        line_no = int(sys.argv[2])
     elif sys.argv[1] == "hard":
         filename = "hard_boards.txt"
+        line_no = int(sys.argv[2])
     elif sys.argv[1] == "extreme":
         filename = "extreme_boards.txt"
-    with open(filename, "r") as new_board:
         line_no = int(sys.argv[2])
+    with open(filename, "r") as new_board:
         lines = new_board.readlines()
         imported_board = []
         board_lines = list(lines[line_no].split("#"))
@@ -77,16 +83,22 @@ def modify_board():
 
 
 def import_solution():
-    if sys.argv[1] == "easy":
+    if len(sys.argv) == 1:
         filename = "easy_boards.txt"
+        line_no = 0
+    elif sys.argv[1] == "easy":
+        filename = "easy_boards.txt"
+        line_no = int(sys.argv[2])
     elif sys.argv[1] == "medium":
         filename = "medium_boards.txt"
+        line_no = int(sys.argv[2])
     elif sys.argv[1] == "hard":
         filename = "hard_boards.txt"
+        line_no = int(sys.argv[2])
     elif sys.argv[1] == "extreme":
         filename = "extreme_boards.txt"
-    with open(filename, "r") as new_solution:
         line_no = int(sys.argv[2])
+    with open(filename, "r") as new_solution:
         lines = new_solution.readlines()
         solution = []
         solution_lines = list(lines[line_no+1].split("#"))
@@ -107,13 +119,12 @@ def check_numbers(solved_board):
 def replace_number():
     number_parameters = []
     number_parameters = [int(r) for r in input().split()]
-    if number_parameters[2] != solution[number_parameters[0]][number_parameters[1]]:
+    if number_parameters[2] == 0:
         board[number_parameters[0]][number_parameters[1]] = e
+    elif str(number_parameters[2]) != solved_board[number_parameters[0]][number_parameters[1]]:
         print("Incorrect number!")
-    if board[number_parameters[0]][number_parameters[1]] == e:
+    elif board[number_parameters[0]][number_parameters[1]] == e:
         board[number_parameters[0]][number_parameters[1]] = number_parameters[2]
-    elif number_parameters[2] == 0:
-        board[number_parameters[0]][number_parameters[1]] = e
 
 
 print(description)
@@ -123,11 +134,5 @@ while True:
     try:
         modify_board()
         board_format(board)
-        import_solution()
-    except ValueError:
-        if str(input()) == "exit":
-            exit()
-        else:
-            print("Incorrect format.")
     except IndexError:
         print("Incorrect format.")
